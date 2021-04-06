@@ -1,0 +1,11 @@
+/target/
+.classpath
+.project
+*.class
+/.project
+/.classpath
+.settings/
+/MANIFEST.MF
+/bin/
+*.idea
+*.iml
