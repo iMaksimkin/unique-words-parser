@@ -33,7 +33,7 @@ class TestApp {
     void validateURL() {
         assertTrue(new DataUtil().validateURL("https://sibirsoft.com"),
                 "Failed while trying to validate URL with HTTPS protocol");
-        assertTrue(new DataUtil().validateURL("http://192.168.1.1"),
+        assertTrue(new DataUtil().validateURL("http://apache.org"),
                 "Failed while trying to validate URL with HTTP protocol");
     }
 }

@@ -8,7 +8,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +37,6 @@ public class HttpBaseClient {
             response = httpclient.execute(httpGet);
             if (response != null && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 htmlPage = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
-                htmlPage = Jsoup.parse(htmlPage).text();
             }
         } catch (Exception ex) {
             logger.error("Failure while getting the response\n" + ex.getMessage(), ex);
