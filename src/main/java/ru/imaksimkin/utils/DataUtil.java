@@ -1,8 +1,14 @@
 package ru.imaksimkin.utils;
 
+import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
+
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +26,9 @@ public class DataUtil {
         return words;
     }
 
-    public Map<String, String> deleteNonUniqueValuesFromString(String stringWithWords) {
+    public Map<String, String> deleteNonUniqueValuesFromString(String htmlPage) {
+        saveArtifact(htmlPage);
+        String stringWithWords = Jsoup.parse(htmlPage).text();
         Map<String, String> mapWithUniqueWords = new HashMap<>();
         List<String> listWords = getWordsWithMoreThanTwoCharsAndMore(stringWithWords);
         Set<String> uniqueWords = new HashSet<>(listWords);
@@ -34,9 +42,19 @@ public class DataUtil {
         try {
             new URL(url).toURI();
         } catch (MalformedURLException | URISyntaxException ex) {
-            System.out.println("The URL is not valid. Be more careful next time.");
+            System.out.println("The URL is not valid. Be more careful next time. " + ex);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void saveArtifact(String page) {
+        String path = String.format("target/page%s.html", System.nanoTime());
+        try {
+            FileUtils.writeStringToFile(new File(path), page, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return true;
     }
 }

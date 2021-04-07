@@ -5,5 +5,11 @@ Firstly you need to apply the following command to create the container with dat
 or change the connection in properties to your local.
 
 Then you should use the main (ru/imaksimkin/runner/main.java) file in the current project and chose the value of the site you want to parse in the terminal.
-
+The html page will be saved in the target/ folder.
 For now, we doesnt support URLs with Internationalized Domain Names
+
+
+##How to execute
+- from terminal: mvn clean compile
+- from terminal: docker run  --name imaksimkin-mysql -p 3307:3306  imaksimkin/imaksimkin-mysql:latest
+- run ru/imaksimkin/runner/main.java
