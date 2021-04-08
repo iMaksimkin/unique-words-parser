@@ -27,7 +27,9 @@ public class HttpBaseClient {
      */
     @SneakyThrows
     public String getResponse(String uri) {
+        logger.trace(String.format("Getting the information from  %s", uri));
         String htmlPage = "";
+
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -38,6 +40,8 @@ public class HttpBaseClient {
             if (response != null && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 htmlPage = IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
             }
+        } catch (OutOfMemoryError ex) {
+            logger.error("out of memory " + ex.getMessage());
         } catch (Exception ex) {
             logger.error("Failure while getting the response\n" + ex.getMessage(), ex);
             throw new RuntimeException(ex);
@@ -46,6 +50,7 @@ public class HttpBaseClient {
                 try {
                     response.close();
                 } catch (IOException ex) {
+                    logger.error("Problem with closing stream from the response");
                     throw new RuntimeException(ex.getMessage(), ex);
                 }
             }
