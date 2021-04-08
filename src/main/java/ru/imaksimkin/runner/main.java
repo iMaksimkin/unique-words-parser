@@ -13,13 +13,11 @@ public class main {
 
     @SneakyThrows
     public static void main(String[] args) {
-
-        DataUtil dataUtil = new DataUtil();
         System.out.println("Please write URL we need to get");
         Scanner scanner = new Scanner(System.in);
 
         String uRL = scanner.next();
-
+        DataUtil dataUtil = new DataUtil();
         dataUtil.validateURL(uRL);
 
         HttpBaseClient client = new HttpBaseClient();

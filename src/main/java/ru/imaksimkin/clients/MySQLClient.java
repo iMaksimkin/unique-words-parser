@@ -1,6 +1,7 @@
 package ru.imaksimkin.clients;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 @Data
+@NoArgsConstructor
 public class MySQLClient extends Client {
 
     private static final String PROPERTY_FILE_PATH = "properties/database.properties";
@@ -47,7 +49,7 @@ public class MySQLClient extends Client {
      * @throws
      */
     public String createTable(String table) throws SQLException {
-        logger.trace("creating table if it is not exist ");
+        logger.trace("Creating the table if it is not exists...");
         String tableName = table.replaceAll("\\W", "_");
         statement = connection.createStatement();
         try {
@@ -67,7 +69,6 @@ public class MySQLClient extends Client {
      * @throws RuntimeException
      */
     public Connection connect() throws RuntimeException {
-        logger.trace("connecting to DB ");
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(DATABASE_URL, getProperties());
@@ -77,11 +78,11 @@ public class MySQLClient extends Client {
             }
         }
         if (connection != null) {
-            logger.trace("The connection is successful ");
             return connection;
         } else {
+            logger.error("There is no connection to Database");
             throw new RuntimeException(
-                    "There is no connection to Database ");
+                    "There is no connection to Database");
         }
     }
 
