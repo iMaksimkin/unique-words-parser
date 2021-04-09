@@ -11,3 +11,4 @@ COPY config/my.cnf /etc/mysql/conf.d/my.cnf
 EXPOSE 3306
 
 #we can add volume and health check
+#also we can create docker-compose with mysql and auto executed jar with [java -jar target/IMaksimkinProject-0.1-SNAPSHOT-jar-with-dependencies.jar] entrypoint.
