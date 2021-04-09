@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 public class DataUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(DataUtil.class);
+    public static String pathToFile;
 
     private List<String> getWordsWithMoreThanTwoCharsAndMore(String stringWithWords) {
         logger.trace("deleting words with length less than 3 characters");
@@ -34,15 +35,15 @@ public class DataUtil {
         return words;
     }
 
-    public Map<String, String> deleteNonUniqueValuesFromString(String htmlPage) {
+    public Map<String, Integer> deleteNonUniqueValuesFromString(String htmlPage) {
         logger.trace("Deleting not unique words");
         saveArtifact(htmlPage);
         String stringWithWords = Jsoup.parse(htmlPage).text();
-        Map<String, String> mapWithUniqueWords = new HashMap<>();
+        Map<String, Integer> mapWithUniqueWords = new HashMap<>();
         List<String> listWords = getWordsWithMoreThanTwoCharsAndMore(stringWithWords);
         Set<String> uniqueWords = new HashSet<>(listWords);
         for (String word : uniqueWords) {
-            mapWithUniqueWords.put(word, String.valueOf(Collections.frequency(listWords, word)));
+            mapWithUniqueWords.put(word, Collections.frequency(listWords, word));
         }
         return mapWithUniqueWords;
     }
@@ -52,7 +53,7 @@ public class DataUtil {
             new URL(url).toURI();
         } catch (MalformedURLException | URISyntaxException ex) {
             logger.error("URL is not correct. \n" + ex.getMessage(), ex);
-            System.out.println("The URL is not valid. Be more careful next time. " +  ex.getMessage());
+            System.out.println("The URL is not valid. Be more careful next time. " + ex.getMessage());
             return false;
         }
         return true;
@@ -60,10 +61,10 @@ public class DataUtil {
 
     private void saveArtifact(String page) {
         String pageName = "page" + System.nanoTime();
-        String path = String.format("target/%s", pageName);
-        logger.trace("Saving " + pageName + "as html page into target folder");
+        pathToFile = String.format("target/%s", pageName);
+        logger.trace("Saving " + pageName + " as html page into target folder");
         try {
-            FileUtils.writeStringToFile(new File(path), page, StandardCharsets.UTF_8);
+            FileUtils.writeStringToFile(new File(pathToFile), page, StandardCharsets.UTF_8);
         } catch (IOException ex) {
             logger.error("Error while saving html page. \n" + ex.getMessage(), ex);
             ex.printStackTrace();
