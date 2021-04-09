@@ -14,4 +14,6 @@ For now, we do not support URLs with Internationalized Domain Names
 ####How to execute
 - from terminal: docker run -d --name imaksimkin-mysql -p 3307:3306  imaksimkin/imaksimkin-mysql:latest
 - from terminal: mvn clean package
-- run ru/imaksimkin/runner/main.java
+- from terminal: java -jar target/IMaksimkinProject-0.1-SNAPSHOT-jar-with-dependencies.jar
+
+
