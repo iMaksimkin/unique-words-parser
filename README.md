@@ -17,3 +17,5 @@ For now, we do not support URLs with Internationalized Domain Names
 - from terminal: java -jar target/IMaksimkinProject-0.1-SNAPSHOT-jar-with-dependencies.jar
 
 
+
+p.s. i ve saved develop branch from 08.04.21 if you will need it except this updated one 
